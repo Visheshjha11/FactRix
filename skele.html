@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factrix: Your AI Shield Against Fake News</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a73e8;
+            --secondary: #34a853;
+            --danger: #ea4335;
+            --warning: #fbbc05;
+            --light: #f8f9fa;
+            --dark: #202124;
+            --gray: #5f6368;
+            --border-radius: 8px;
+            --box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: var(--box-shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .logo span {
+            color: var(--secondary);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+        
+        .mobile-menu {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 60px 0;
+            text-align: center;
+            background-color: white;
+            margin-bottom: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .hero h2 {
+            font-size: 42px;
+            margin-bottom: 20px;
+            color: var(--dark);
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 18px;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        /* Input Box */
+        .input-section {
+            background-color: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 30px;
+        }
+        
+        .input-container {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .input-container textarea {
+            width: 100%;
+            height: 120px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            resize: none;
+        }
+        
+        .input-container button {
+            padding: 12px 24px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            align-self: flex-end;
+        }
+        
+        .input-container button:hover {
+            background-color: #0d5bbd;
+        }
+        
+        /* Results Section */
+        .results-section {
+            background-color: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 30px;
+            display: none;
+        }
+        
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .results-header h3 {
+            font-size: 24px;
+        }
+        
+        .credibility-badge {
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+        
+        .safe {
+            background-color: #e6f4ea;
+            color: var(--secondary);
+        }
+        
+        .questionable {
+            background-color: #fef7e0;
+            color: var(--warning);
+        }
+        
+        .fake {
+            background-color: #fce8e6;
+            color: var(--danger);
+        }
+        
+        .explanation {
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #f5f5f5;
+            border-radius: var(--border-radius);
+        }
+        
+        .explanation h4 {
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        
+        .explanation p {
+            color: var(--gray);
+            margin-bottom: 10px;
+        }
+        
+        .source-trust {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        
+        .voting {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        
+        .voting button {
+            display: flex;
+            align-items: center;
+            padding: 8px 16px;
+            margin-left: 10px;
+            background-color: #f5f5f5;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .voting button:hover {
+            background-color: #e5e5e5;
+        }
+        
+        .voting i {
+            margin-right: 5px;
+        }
+        
+        /* Main Content Layout */
+        .main-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .content {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .sidebar {
+            width: 300px;
+        }
+        
+        /* Sidebar Styles */
+        .sidebar-section {
+            background-color: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 20px;
+        }
+        
+        .sidebar-section h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .sidebar-nav ul {
+            list-style: none;
+        }
+        
+        .sidebar-nav ul li {
+            margin-bottom: 10px;
+        }
+        
+        .sidebar-nav ul li a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--dark);
+            transition: color 0.3s;
+        }
+        
+        .sidebar-nav ul li a:hover {
+            color: var(--primary);
+        }
+        
+        .sidebar-nav i {
+            margin-right: 10px;
+            color: var(--primary);
+        }
+        
+        /* Recent Debunks */
+        .recent-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .recent-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .recent-item a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .recent-item a:hover {
+            color: var(--primary);
+        }
+        
+        .recent-item .date {
+            font-size: 12px;
+            color: var(--gray);
+            margin-top: 5px;
+        }
+        
+        /* Featured Checks */
+        .featured-section {
+            background-color: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 30px;
+        }
+        
+        .featured-section h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .featured-card {
+            border: 1px solid #eee;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .featured-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .featured-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        
+        .featured-card-content {
+            padding: 15px;
+        }
+        
+        .featured-card-content h4 {
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        
+        .featured-card-content a {
+            text-decoration: none;
+            color: var(--dark);
+            transition: color 0.3s;
+        }
+        
+        .featured-card-content a:hover {
+            color: var(--primary);
+        }
+        
+        .featured-card-content p {
+            color: var(--gray);
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            font-size: 12px;
+            color: var(--gray);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: white;
+            padding: 40px 0;
+            margin-top: 40px;
+            border-top: 1px solid #eee;
+        }
+        
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        
+        .footer-col {
+            flex: 1;
+            min-width: 200px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-col h4 {
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        .footer-col ul {
+            list-style: none;
+        }
+        
+        .footer-col ul li {
+            margin-bottom: 8px;
+        }
+        
+        .footer-col ul li a {
+            text-decoration: none;
+            color: var(--gray);
+            transition: color 0.3s;
+        }
+        
+        .footer-col ul li a:hover {
+            color: var(--primary);
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: var(--gray);
+            font-size: 14px;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .logo {
+                margin-bottom: 15px;
+                justify-content: center;
+            }
+            
+            nav {
+                width: 100%;
+            }
+            
+            nav ul {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            nav ul li {
+                margin: 5px 10px;
+            }
+            
+            .hero {
+                padding: 40px 0;
+            }
+            
+            .hero h2 {
+                font-size: 32px;
+            }
+            
+            .sidebar {
+                width: 100%;
+            }
+            
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .featured-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .mobile-menu {
+                display: block;
+            }
+            
+            nav ul {
+                display: none;
+            }
+            
+            .nav-mobile {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .hero h2 {
+                font-size: 28px;
+            }
+            
+            .input-container button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <h1>Fact<span>rix</span></h1>
+            </div>
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Sources</a></li>
+                    <li><a href="#">Fact-Checks</a></li>
+                    <li><a href="#">Leaderboard</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <h2>Factrix: Your AI Shield Against Fake News</h2>
+            <p>Verify news articles, claims, and social media posts using our advanced AI technology. Combat misinformation with just a few clicks.</p>
+        </section>
+
+        <div class="main-content">
+            <!-- Left Content -->
+            <div class="content">
+                <!-- Input Section -->
+                <section class="input-section">
+                    <div class="input-container">
+                        <textarea placeholder="Paste news link or content here to verify..."></textarea>
+                        <button id="check-btn">Check Credibility</button>
+                    </div>
+                </section>
+
+                <!-- Results Section (Hidden by default) -->
+                <section class="results-section" id="results">
+                    <div class="results-header">
+                        <h3>Credibility Analysis</h3>
+                        <span class="credibility-badge questionable">Questionable</span>
+                    </div>
+                    <div class="explanation">
+                        <h4>AI Analysis</h4>
+                        <p>Our AI model has detected several concerning elements in this content:</p>
+                        <ul>
+                            <li>Sensational keywords detected: "miracle", "never seen before"</li>
+                            <li>Claims lack verifiable sources or scientific evidence</li>
+                            <li>Manipulative emotional language employed throughout the text</li>
+                        </ul>
+                        <div class="source-trust">
+                            <p><strong>Source Trust Level:</strong> Low - This domain has been flagged for spreading misinformation previously</p>
+                        </div>
+                    </div>
+                    <div class="voting">
+                        <button><i class="fas fa-thumbs-up"></i> Agree (234)</button>
+                        <button><i class="fas fa-thumbs-down"></i> Disagree (15)</button>
+                    </div>
+                </section>
+
+                <!-- Featured Fact Checks -->
+                <section class="featured-section">
+                    <h3>Trending Fact Checks</h3>
+                    <div class="featured-grid">
+                        <div class="featured-card">
+                            <img src="/api/placeholder/400/320" alt="fact check image">
+                            <div class="featured-card-content">
+                                <h4><a href="#">Did NASA Discover Alien Structures on Mars?</a></h4>
+                                <p>Claims about alien structures discovered on Mars have been circulating online...</p>
+                                <div class="card-footer">
+                                    <span class="credibility-badge fake">False</span>
+                                    <span>April 28, 2025</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="featured-card">
+                            <img src="/api/placeholder/400/320" alt="fact check image">
+                            <div class="featured-card-content">
+                                <h4><a href="#">Is This Video of a Giant Snake in Florida Real?</a></h4>
+                                <p>A viral video claiming to show a 30-foot snake captured in Florida has been shared...</p>
+                                <div class="card-footer">
+                                    <span class="credibility-badge fake">False</span>
+                                    <span>April 25, 2025</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="featured-card">
+                            <img src="/api/placeholder/400/320" alt="fact check image">
+                            <div class="featured-card-content">
+                                <h4><a href="#">Did the Government Announce a New Stimulus Check?</a></h4>
+                                <p>Rumors about a new round of stimulus checks have been circulating on social media...</p>
+                                <div class="card-footer">
+                                    <span class="credibility-badge questionable">Mixture</span>
+                                    <span>April 20, 2025</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Navigation Links -->
+                <div class="sidebar-section sidebar-nav">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="#"><i class="fas fa-check-circle"></i> Top Trusted Sources</a></li>
+                        <li><a href="#"><i class="fas fa-times-circle"></i> Untrusted News Sources</a></li>
+                        <li><a href="#"><i class="fas fa-newspaper"></i> Recent Debunks</a></li>
+                        <li><a href="#"><i class="fas fa-plus-circle"></i> Contribute a Fact-Check</a></li>
+                        <li><a href="#"><i class="fas fa-info-circle"></i> About</a></li>
+                    </ul>
+                </div>
+
+                <!-- Recent Debunks -->
+                <div class="sidebar-section">
+                    <h3>Recent Debunks</h3>
+                    <div class="recent-item">
+                        <a href="#">No, the Moon Landing Was Not Filmed in a Hollywood Studio</a>
+                        <div class="date">April 29, 2025</div>
+                    </div>
+                    <div class="recent-item">
+                        <a href="#">False Claims About New "Miracle" Weight Loss Drug</a>
+                        <div class="date">April 27, 2025</div>
+                    </div>
+                    <div class="recent-item">
+                        <a href="#">Debunking the Viral "Earth is Actually Flat" Video</a>
+                        <div class="date">April 24, 2025</div>
+                    </div>
+                    <div class="recent-item">
+                        <a href="#">No, Drinking Lemon Water Does Not Cure Cancer</a>
+                        <div class="date">April 22, 2025</div>
+                    </div>
+                    <div class="recent-item">
+                        <a href="#">Fact Check: The Truth About the New Tax Legislation</a>
+                        <div class="date">April 19, 2025</div>
+                    </div>
+                </div>
+
+                <!-- Top Sources -->
+                <div class="sidebar-section">
+                    <h3>Most Reliable News Sources</h3>
+                    <div class="recent-item">
+                        <a href="#">Associated Press</a>
+                    </div>
+                    <div class="recent-item">
+                        <a href="#">Reuters</a>
+                    </div>
+                    <div class="recent-item">
+                        <a href="#">BBC News</a>
+                    </div>
+                    <div class="recent-item">
+                        <a href="#">The New York Times</a>
+                    </div>
+                    <div class="recent-item">
+                        <a href="#">The Washington Post</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-col">
+                <h4>Factrix</h4>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Our Mission</a></li>
+                    <li><a href="#">How It Works</a></li>
+                    <li><a href="#">API Documentation</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#">Fact-Check Database</a></li>
+                    <li><a href="#">Source Reliability Index</a></li>
+                    <li><a href="#">Media Literacy Guide</a></li>
+                    <li><a href="#">Educational Materials</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Get Involved</h4>
+                <ul>
+                    <li><a href="#">Submit a Claim</a></li>
+                    <li><a href="#">Become a Contributor</a></li>
+                    <li><a href="#">Support Our Work</a></li>
+                    <li><a href="#">Newsletter</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Connect</h4>
+                <ul>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Instagram</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container">
+            <div class="copyright">
+                &copy; 2025 Factrix. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle mobile menu
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            const nav = document.querySelector('nav ul');
+            nav.classList.toggle('nav-mobile');
+            if (nav.style.display === 'flex') {
+                nav.style.display = 'none';
+            } else {
+                nav.style.display = 'flex';
+            }
+        });
+        
+        // Show results section on button click (Demo functionality)
+        document.getElementById('check-btn').addEventListener('click', function() {
+            // In a real application, this would send data to the backend for analysis
+            // For demo purposes, we're just showing the pre-populated results section
+            document.getElementById('results').style.display = 'block';
+            
+            // Smooth scroll to results
+            document.getElementById('results').scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>
