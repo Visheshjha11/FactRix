@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Factrix - Your AI Shield Against Fake News</title>
+    <title>FactRix - Your AI Shield Against Fake News</title>
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
       rel="stylesheet"
@@ -537,15 +537,15 @@
         <div class="header-content">
           <a href="#" class="logo">
             <i class="fas fa-shield-alt"></i>
-            <span>Factrix</span>
+            <span>FactRix</span>
           </a>
           <nav>
             <ul>
-              <li><a href="#">Home</a></li>
+              <li><a href="skele.html">Home</a></li>
               <li><a href="#">Sources</a></li>
               <li><a href="#">Fact-Checks</a></li>
               <li><a href="#">Leaderboard</a></li>
-              <li><a href="#">About</a></li>
+              <li><a href="about.html">About</a></li>
             </ul>
           </nav>
           <button
@@ -718,7 +718,7 @@
         <div class="footer-content">
           <div>
             <div class="footer-logo">
-              <i class="fas fa-shield-alt"></i> Factrix
+              <i class="fas fa-shield-alt"></i> FactRix
             </div>
             <p class="footer-desc">
               Combating misinformation through AI technology and community
@@ -728,8 +728,8 @@
           <div>
             <h3 class="footer-title">Navigation</h3>
             <ul class="footer-links">
-              <li><a href="#">Home</a></li>
-              <li><a href="#">About</a></li>
+              <li><a href="skele.html">Home</a></li>
+              <li><a href="about.html">About</a></li>
               <li><a href="#">Sources</a></li>
               <li><a href="#">Fact-Checks</a></li>
               <li><a href="#">Leaderboard</a></li>
@@ -763,12 +763,10 @@
       const themeToggle = document.getElementById("theme-toggle");
       const icon = themeToggle.querySelector("i");
 
-      // Check for saved theme preference
-      const savedTheme = localStorage.getItem("theme");
-      if (savedTheme) {
-        document.documentElement.setAttribute("data-theme", savedTheme);
-        icon.className = savedTheme === "dark" ? "fas fa-sun" : "fas fa-moon";
-      }
+      // Set dark theme as default if no theme is saved
+      const savedTheme = localStorage.getItem("theme") || "dark";
+      document.documentElement.setAttribute("data-theme", savedTheme);
+      icon.className = savedTheme === "dark" ? "fas fa-sun" : "fas fa-moon";
 
       themeToggle.addEventListener("click", () => {
         const currentTheme =
