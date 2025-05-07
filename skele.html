@@ -1,692 +1,816 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Factrix - Your AI Shield Against Fake News</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
     <style>
-        :root {
-            --primary: #2196F3;
-            --primary-light: #BBDEFB;
-            --primary-dark: #1976D2;
-            --secondary: #F44336;
-            --secondary-light: #FFCDD2;
-            --accent: #9C27B0;
-            --accent-light: #E1BEE7;
-            --text-primary: #212121;
-            --text-secondary: #757575;
-            --background: #FAFAFA;
-            --card-bg: #FFFFFF;
-            --border: #E0E0E0;
-        }
+      :root {
+        --primary: #2196f3;
+        --primary-light: #bbdefb;
+        --primary-dark: #1976d2;
+        --secondary: #f44336;
+        --secondary-light: #ffcdd2;
+        --accent: #9c27b0;
+        --accent-light: #e1bee7;
+        --text-primary: #212121;
+        --text-secondary: #757575;
+        --background: #fafafa;
+        --card-bg: #ffffff;
+        --border: #e0e0e0;
+      }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+      [data-theme="dark"] {
+        --primary: #64b5f6;
+        --primary-light: #1976d2;
+        --primary-dark: #bbdefb;
+        --secondary: #ef5350;
+        --secondary-light: #b71c1c;
+        --accent: #ba68c8;
+        --accent-light: #7b1fa2;
+        --text-primary: #ffffff;
+        --text-secondary: #b0b0b0;
+        --background: #121212;
+        --card-bg: #1e1e1e;
+        --border: #333333;
+      }
 
-        body {
-            background-color: var(--background);
-            color: var(--text-primary);
-            line-height: 1.6;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
 
-        header {
-            background-color: var(--card-bg);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+      body {
+        background-color: var(--background);
+        color: var(--text-primary);
+        line-height: 1.6;
+      }
 
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+      header {
+        background-color: var(--card-bg);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
 
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 0;
-        }
+      .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            text-decoration: none;
-            color: var(--primary);
-            font-weight: 700;
-            font-size: 1.5rem;
-        }
+      .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 0;
+      }
 
-        .logo i {
-            font-size: 1.8rem;
-        }
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        color: var(--primary);
+        font-weight: 700;
+        font-size: 1.5rem;
+      }
 
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 24px;
-        }
+      .logo i {
+        font-size: 1.8rem;
+      }
 
-        nav a {
-            text-decoration: none;
-            color: var(--text-primary);
-            font-weight: 500;
-            transition: color 0.3s;
-        }
+      nav ul {
+        display: flex;
+        list-style: none;
+        gap: 24px;
+      }
 
-        nav a:hover {
-            color: var(--primary);
+      nav a {
+        text-decoration: none;
+        color: var(--text-primary);
+        font-weight: 500;
+        transition: color 0.3s;
+      }
+
+      nav a:hover {
+        color: var(--primary);
+      }
+
+      .mobile-menu {
+        display: none;
+        font-size: 1.5rem;
+        color: var(--text-primary);
+        background: none;
+        border: none;
+        cursor: pointer;
+      }
+
+      .hero {
+        padding: 80px 0;
+        text-align: center;
+        background: linear-gradient(
+          to bottom,
+          var(--primary-light),
+          var(--background)
+        );
+      }
+
+      .hero h1 {
+        font-size: clamp(2rem, 5vw, 3rem);
+        margin-bottom: 16px;
+        color: var(--primary-dark);
+      }
+
+      .hero p {
+        font-size: clamp(1rem, 2.5vw, 1.25rem);
+        max-width: 700px;
+        margin: 0 auto 40px;
+        color: var(--text-secondary);
+      }
+
+      .verification-card {
+        background-color: var(--card-bg);
+        border-radius: 12px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        padding: 32px;
+        max-width: 800px;
+        margin: -40px auto 60px;
+        position: relative;
+      }
+
+      .verification-input {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .input-field {
+        width: 100%;
+        padding: 16px;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: border-color 0.3s;
+        resize: none;
+        min-height: 120px;
+      }
+
+      .input-field:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 2px var(--primary-light);
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 12px 24px;
+        background-color: var(--primary);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.2s;
+        text-align: center;
+        text-decoration: none;
+      }
+
+      .btn:hover {
+        background-color: var(--primary-dark);
+        transform: translateY(-2px);
+      }
+
+      .btn:active {
+        transform: translateY(0);
+      }
+
+      .btn-secondary {
+        background-color: transparent;
+        color: var(--primary);
+        border: 1px solid var(--primary);
+      }
+
+      .btn-secondary:hover {
+        background-color: var(--primary-light);
+        color: var(--primary-dark);
+      }
+
+      .action-buttons {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        margin-top: 24px;
+      }
+
+      .results {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.5s ease-out;
+        margin-top: 32px;
+      }
+
+      .results.active {
+        max-height: 800px;
+      }
+
+      .result-meter {
+        display: flex;
+        justify-content: space-between;
+        margin: 24px 0;
+      }
+
+      .meter {
+        height: 8px;
+        background-color: var(--border);
+        border-radius: 4px;
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .meter-fill {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 70%;
+        background: linear-gradient(
+          to right,
+          var(--secondary),
+          var(--primary),
+          #4caf50
+        );
+        border-radius: 4px;
+      }
+
+      .meter-labels {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 8px;
+        font-size: 0.875rem;
+        color: var(--text-secondary);
+      }
+
+      .result-details {
+        background-color: var(--primary-light);
+        border-radius: 8px;
+        padding: 16px;
+        margin-top: 24px;
+      }
+
+      .result-details h3 {
+        color: var(--primary-dark);
+        margin-bottom: 12px;
+      }
+
+      .section-title {
+        text-align: center;
+        margin: 60px 0 30px;
+        font-size: clamp(1.5rem, 3vw, 2rem);
+        position: relative;
+        color: var(--text-primary);
+      }
+
+      .section-title::after {
+        content: "";
+        display: block;
+        width: 60px;
+        height: 4px;
+        background-color: var(--primary);
+        margin: 16px auto 0;
+        border-radius: 2px;
+      }
+
+      .features {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 32px;
+        margin: 40px 0;
+      }
+
+      .feature-card {
+        background-color: var(--card-bg);
+        border-radius: 12px;
+        padding: 24px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s, box-shadow 0.3s;
+        text-align: center;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      }
+
+      .feature-icon {
+        font-size: 2.5rem;
+        color: var(--primary);
+        margin-bottom: 16px;
+      }
+
+      .feedback-section {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        margin-top: 24px;
+      }
+
+      .feedback-btn {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px;
+        border-radius: 20px;
+        border: 1px solid var(--border);
+        background-color: var(--card-bg);
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .feedback-btn:hover {
+        background-color: var(--primary-light);
+      }
+
+      .recent-checks {
+        margin: 60px 0;
+      }
+
+      .check-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 24px;
+      }
+
+      .check-card {
+        background-color: var(--card-bg);
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s;
+      }
+
+      .check-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .check-header {
+        padding: 16px;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .check-title {
+        font-size: 1.1rem;
+        margin-bottom: 8px;
+        color: var(--text-primary);
+      }
+
+      .check-source {
+        font-size: 0.875rem;
+        color: var(--text-secondary);
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .check-content {
+        padding: 16px;
+      }
+
+      .check-rating {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 16px;
+        font-size: 0.875rem;
+        font-weight: 600;
+        margin-bottom: 12px;
+      }
+
+      .rating-fake {
+        background-color: var(--secondary-light);
+        color: var(--secondary);
+      }
+
+      .rating-questionable {
+        background-color: #fff3e0;
+        color: #ff9800;
+      }
+
+      .rating-true {
+        background-color: #e8f5e9;
+        color: #4caf50;
+      }
+
+      .check-snippet {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      footer {
+        background-color: var(--primary-dark);
+        color: var(--card-bg);
+        padding: 60px 0 20px;
+      }
+
+      .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 40px;
+        margin-bottom: 40px;
+      }
+
+      .footer-logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 16px;
+        color: var(--card-bg);
+      }
+
+      .footer-desc {
+        margin-bottom: 24px;
+        opacity: 0.9;
+        color: var(--card-bg);
+      }
+
+      .footer-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 16px;
+        color: var(--card-bg);
+      }
+
+      .footer-links {
+        list-style: none;
+      }
+
+      .footer-links li {
+        margin-bottom: 12px;
+      }
+
+      .footer-links a {
+        color: var(--card-bg);
+        text-decoration: none;
+        opacity: 0.8;
+        transition: opacity 0.3s;
+      }
+
+      .footer-links a:hover {
+        opacity: 1;
+      }
+
+      .copyright {
+        text-align: center;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        font-size: 0.875rem;
+        opacity: 0.7;
+        color: var(--card-bg);
+      }
+
+      .theme-toggle {
+        background: none;
+        border: none;
+        color: var(--text-primary);
+        cursor: pointer;
+        font-size: 1.2rem;
+        padding: 8px;
+        border-radius: 50%;
+        transition: background-color 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .theme-toggle:hover {
+        background-color: var(--primary-light);
+      }
+
+      .theme-toggle i {
+        transition: transform 0.3s;
+      }
+
+      .theme-toggle:hover i {
+        transform: rotate(30deg);
+      }
+
+      /* Media Queries */
+      @media (max-width: 768px) {
+        nav {
+          display: none;
         }
 
         .mobile-menu {
-            display: none;
-            font-size: 1.5rem;
-            color: var(--text-primary);
-            background: none;
-            border: none;
-            cursor: pointer;
-        }
-
-        .hero {
-            padding: 80px 0;
-            text-align: center;
-            background: linear-gradient(to bottom, var(--primary-light), var(--background));
-        }
-
-        .hero h1 {
-            font-size: clamp(2rem, 5vw, 3rem);
-            margin-bottom: 16px;
-            color: var(--primary-dark);
-        }
-
-        .hero p {
-            font-size: clamp(1rem, 2.5vw, 1.25rem);
-            max-width: 700px;
-            margin: 0 auto 40px;
-            color: var(--text-secondary);
-        }
-
-        .verification-card {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-            padding: 32px;
-            max-width: 800px;
-            margin: -40px auto 60px;
-            position: relative;
-        }
-
-        .verification-input {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .input-field {
-            width: 100%;
-            padding: 16px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border-color 0.3s;
-            resize: none;
-            min-height: 120px;
-        }
-
-        .input-field:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 2px var(--primary-light);
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 12px 24px;
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
-            text-align: center;
-            text-decoration: none;
-        }
-
-        .btn:hover {
-            background-color: var(--primary-dark);
-            transform: translateY(-2px);
-        }
-
-        .btn:active {
-            transform: translateY(0);
-        }
-
-        .btn-secondary {
-            background-color: transparent;
-            color: var(--primary);
-            border: 1px solid var(--primary);
-        }
-
-        .btn-secondary:hover {
-            background-color: var(--primary-light);
-            color: var(--primary-dark);
+          display: block;
         }
 
         .action-buttons {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            margin-top: 24px;
+          flex-direction: column;
         }
 
-        .results {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease-out;
-            margin-top: 32px;
+        .hero {
+          padding: 60px 0;
         }
 
-        .results.active {
-            max-height: 800px;
+        .verification-card {
+          padding: 24px;
+          margin-top: -30px;
         }
-
-        .result-meter {
-            display: flex;
-            justify-content: space-between;
-            margin: 24px 0;
-        }
-
-        .meter {
-            height: 8px;
-            background-color: var(--border);
-            border-radius: 4px;
-            width: 100%;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .meter-fill {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 70%;
-            background: linear-gradient(to right, var(--secondary), var(--primary), #4CAF50);
-            border-radius: 4px;
-        }
-
-        .meter-labels {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 8px;
-            font-size: 0.875rem;
-            color: var(--text-secondary);
-        }
-
-        .result-details {
-            background-color: var(--primary-light);
-            border-radius: 8px;
-            padding: 16px;
-            margin-top: 24px;
-        }
-
-        .result-details h3 {
-            color: var(--primary-dark);
-            margin-bottom: 12px;
-        }
-
-        .section-title {
-            text-align: center;
-            margin: 60px 0 30px;
-            font-size: clamp(1.5rem, 3vw, 2rem);
-            position: relative;
-            color: var(--text-primary);
-        }
-
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 4px;
-            background-color: var(--primary);
-            margin: 16px auto 0;
-            border-radius: 2px;
-        }
-
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 32px;
-            margin: 40px 0;
-        }
-
-        .feature-card {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            padding: 24px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
-            text-align: center;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-        }
-
-        .feature-icon {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 16px;
-        }
-
-        .feedback-section {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-top: 24px;
-        }
-
-        .feedback-btn {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            border-radius: 20px;
-            border: 1px solid var(--border);
-            background-color: var(--card-bg);
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .feedback-btn:hover {
-            background-color: var(--primary-light);
-        }
-
-        .recent-checks {
-            margin: 60px 0;
-        }
-
-        .check-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 24px;
-        }
-
-        .check-card {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s;
-        }
-
-        .check-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .check-header {
-            padding: 16px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .check-title {
-            font-size: 1.1rem;
-            margin-bottom: 8px;
-            color: var(--text-primary);
-        }
-
-        .check-source {
-            font-size: 0.875rem;
-            color: var(--text-secondary);
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .check-content {
-            padding: 16px;
-        }
-
-        .check-rating {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 16px;
-            font-size: 0.875rem;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-
-        .rating-fake {
-            background-color: var(--secondary-light);
-            color: var(--secondary);
-        }
-
-        .rating-questionable {
-            background-color: #FFF3E0;
-            color: #FF9800;
-        }
-
-        .rating-true {
-            background-color: #E8F5E9;
-            color: #4CAF50;
-        }
-
-        .check-snippet {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        footer {
-            background-color: var(--primary-dark);
-            color: white;
-            padding: 60px 0 20px;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-
-        .footer-logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 16px;
-        }
-
-        .footer-desc {
-            margin-bottom: 24px;
-            opacity: 0.8;
-        }
-
-        .footer-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 16px;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 12px;
-        }
-
-        .footer-links a {
-            color: white;
-            text-decoration: none;
-            opacity: 0.8;
-            transition: opacity 0.3s;
-        }
-
-        .footer-links a:hover {
-            opacity: 1;
-        }
-
-        .copyright {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 0.875rem;
-            opacity: 0.6;
-        }
-
-        /* Media Queries */
-        @media (max-width: 768px) {
-            nav {
-                display: none;
-            }
-
-            .mobile-menu {
-                display: block;
-            }
-
-            .action-buttons {
-                flex-direction: column;
-            }
-
-            .hero {
-                padding: 60px 0;
-            }
-
-            .verification-card {
-                padding: 24px;
-                margin-top: -30px;
-            }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <div class="container">
-            <div class="header-content">
-                <a href="#" class="logo">
-                    <i class="fas fa-shield-alt"></i>
-                    <span>Factrix</span>
-                </a>
-                <nav>
-                    <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Sources</a></li>
-                        <li><a href="#">Fact-Checks</a></li>
-                        <li><a href="#">Leaderboard</a></li>
-                        <li><a href="#">About</a></li>
-                    </ul>
-                </nav>
-                <button class="mobile-menu">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </div>
+      <div class="container">
+        <div class="header-content">
+          <a href="#" class="logo">
+            <i class="fas fa-shield-alt"></i>
+            <span>Factrix</span>
+          </a>
+          <nav>
+            <ul>
+              <li><a href="#">Home</a></li>
+              <li><a href="#">Sources</a></li>
+              <li><a href="#">Fact-Checks</a></li>
+              <li><a href="#">Leaderboard</a></li>
+              <li><a href="#">About</a></li>
+            </ul>
+          </nav>
+          <button
+            class="theme-toggle"
+            id="theme-toggle"
+            aria-label="Toggle dark mode"
+          >
+            <i class="fas fa-moon"></i>
+          </button>
+          <button class="mobile-menu">
+            <i class="fas fa-bars"></i>
+          </button>
         </div>
+      </div>
     </header>
 
     <section class="hero">
-        <div class="container">
-            <h1>Your AI Shield Against Fake News</h1>
-            <p>Factrix helps you verify the credibility of news and information using advanced AI technology and community-powered fact-checking.</p>
-        </div>
+      <div class="container">
+        <h1>Your AI Shield Against Fake News</h1>
+        <p>
+          Factrix helps you verify the credibility of news and information using
+          advanced AI technology and community-powered fact-checking.
+        </p>
+      </div>
     </section>
 
     <main class="container">
-        <div class="verification-card">
-            <div class="verification-input">
-                <textarea class="input-field" placeholder="Paste News Link or Content here..."></textarea>
-                <div class="action-buttons">
-                    <button class="btn" id="check-btn">Check Credibility</button>
-                    <button class="btn btn-secondary">Upload Article</button>
-                </div>
-            </div>
-
-            <div class="results" id="results">
-                <h3>Credibility Assessment</h3>
-                <div class="result-meter">
-                    <div class="meter">
-                        <div class="meter-fill"></div>
-                    </div>
-                </div>
-                <div class="meter-labels">
-                    <span>Fake</span>
-                    <span>Questionable</span>
-                    <span>True</span>
-                </div>
-
-                <div class="result-details">
-                    <h3>Why we think this might be misleading:</h3>
-                    <p>Our AI analysis detected several patterns common in misleading news articles, including emotional language, lack of attribution to primary sources, and inconsistencies with verified facts.</p>
-                </div>
-
-                <div class="feedback-section">
-                    <button class="feedback-btn">
-                        <i class="fas fa-thumbs-up"></i>
-                        <span>Helpful</span>
-                    </button>
-                    <button class="feedback-btn">
-                        <i class="fas fa-thumbs-down"></i>
-                        <span>Not Helpful</span>
-                    </button>
-                </div>
-            </div>
+      <div class="verification-card">
+        <div class="verification-input">
+          <textarea
+            class="input-field"
+            placeholder="Paste News Link or Content here..."
+          ></textarea>
+          <div class="action-buttons">
+            <button class="btn" id="check-btn">Check Credibility</button>
+            <button class="btn btn-secondary">Upload Article</button>
+          </div>
         </div>
 
-        <h2 class="section-title">How Factrix Works</h2>
-        <div class="features">
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-robot"></i>
-                </div>
-                <h3>AI-Powered Analysis</h3>
-                <p>Our sophisticated algorithms scan for misleading claims and detect potential bias in reporting.</p>
+        <div class="results" id="results">
+          <h3>Credibility Assessment</h3>
+          <div class="result-meter">
+            <div class="meter">
+              <div class="meter-fill"></div>
             </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-users"></i>
-                </div>
-                <h3>Community Contributions</h3>
-                <p>Join our collective effort to reduce misinformation by submitting and reviewing fact-checks.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-bolt"></i>
-                </div>
-                <h3>Real-Time Verification</h3>
-                <p>Get instant feedback on content credibility while browsing online articles.</p>
-            </div>
-        </div>
+          </div>
+          <div class="meter-labels">
+            <span>Fake</span>
+            <span>Questionable</span>
+            <span>True</span>
+          </div>
 
-        <section class="recent-checks">
-            <h2 class="section-title">Recent Fact Checks</h2>
-            <div class="check-list">
-                <div class="check-card">
-                    <div class="check-header">
-                        <h3 class="check-title">Study Claims Climate Change is a Hoax</h3>
-                        <div class="check-source">
-                            <i class="fas fa-link"></i>
-                            <span>climatetruth.net</span>
-                        </div>
-                    </div>
-                    <div class="check-content">
-                        <span class="check-rating rating-fake">Fake</span>
-                        <p class="check-snippet">The article misrepresents scientific consensus and cites non-peer-reviewed studies. Multiple sources confirm that climate change is well-documented by global scientific institutions.</p>
-                    </div>
-                </div>
-                <div class="check-card">
-                    <div class="check-header">
-                        <h3 class="check-title">New COVID Variant Causes Panic</h3>
-                        <div class="check-source">
-                            <i class="fas fa-link"></i>
-                            <span>healthnewsdaily.com</span>
-                        </div>
-                    </div>
-                    <div class="check-content">
-                        <span class="check-rating rating-questionable">Questionable</span>
-                        <p class="check-snippet">While a new variant has been identified, the article exaggerates its impact and uses sensationalist language. Official health organizations report the variant is being monitored but does not currently warrant alarm.</p>
-                    </div>
-                </div>
-                <div class="check-card">
-                    <div class="check-header">
-                        <h3 class="check-title">Economic Growth Reaches 5-Year High</h3>
-                        <div class="check-source">
-                            <i class="fas fa-link"></i>
-                            <span>reuters.com</span>
-                        </div>
-                    </div>
-                    <div class="check-content">
-                        <span class="check-rating rating-true">True</span>
-                        <p class="check-snippet">This article accurately reports official economic data released by the Federal Reserve. Multiple financial sources confirm the reported growth figures.</p>
-                    </div>
-                </div>
+          <div class="result-details">
+            <h3>Why we think this might be misleading:</h3>
+            <p>
+              Our AI analysis detected several patterns common in misleading
+              news articles, including emotional language, lack of attribution
+              to primary sources, and inconsistencies with verified facts.
+            </p>
+          </div>
+
+          <div class="feedback-section">
+            <button class="feedback-btn">
+              <i class="fas fa-thumbs-up"></i>
+              <span>Helpful</span>
+            </button>
+            <button class="feedback-btn">
+              <i class="fas fa-thumbs-down"></i>
+              <span>Not Helpful</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="section-title">How Factrix Works</h2>
+      <div class="features">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-robot"></i>
+          </div>
+          <h3>AI-Powered Analysis</h3>
+          <p>
+            Our sophisticated algorithms scan for misleading claims and detect
+            potential bias in reporting.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <h3>Community Contributions</h3>
+          <p>
+            Join our collective effort to reduce misinformation by submitting
+            and reviewing fact-checks.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-bolt"></i>
+          </div>
+          <h3>Real-Time Verification</h3>
+          <p>
+            Get instant feedback on content credibility while browsing online
+            articles.
+          </p>
+        </div>
+      </div>
+
+      <section class="recent-checks">
+        <h2 class="section-title">Recent Fact Checks</h2>
+        <div class="check-list">
+          <div class="check-card">
+            <div class="check-header">
+              <h3 class="check-title">Study Claims Climate Change is a Hoax</h3>
+              <div class="check-source">
+                <i class="fas fa-link"></i>
+                <span>climatetruth.net</span>
+              </div>
             </div>
-        </section>
+            <div class="check-content">
+              <span class="check-rating rating-fake">Fake</span>
+              <p class="check-snippet">
+                The article misrepresents scientific consensus and cites
+                non-peer-reviewed studies. Multiple sources confirm that climate
+                change is well-documented by global scientific institutions.
+              </p>
+            </div>
+          </div>
+          <div class="check-card">
+            <div class="check-header">
+              <h3 class="check-title">New COVID Variant Causes Panic</h3>
+              <div class="check-source">
+                <i class="fas fa-link"></i>
+                <span>healthnewsdaily.com</span>
+              </div>
+            </div>
+            <div class="check-content">
+              <span class="check-rating rating-questionable">Questionable</span>
+              <p class="check-snippet">
+                While a new variant has been identified, the article exaggerates
+                its impact and uses sensationalist language. Official health
+                organizations report the variant is being monitored but does not
+                currently warrant alarm.
+              </p>
+            </div>
+          </div>
+          <div class="check-card">
+            <div class="check-header">
+              <h3 class="check-title">Economic Growth Reaches 5-Year High</h3>
+              <div class="check-source">
+                <i class="fas fa-link"></i>
+                <span>reuters.com</span>
+              </div>
+            </div>
+            <div class="check-content">
+              <span class="check-rating rating-true">True</span>
+              <p class="check-snippet">
+                This article accurately reports official economic data released
+                by the Federal Reserve. Multiple financial sources confirm the
+                reported growth figures.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
 
     <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div>
-                    <div class="footer-logo">
-                        <i class="fas fa-shield-alt"></i> Factrix
-                    </div>
-                    <p class="footer-desc">Combating misinformation through AI technology and community engagement.</p>
-                </div>
-                <div>
-                    <h3 class="footer-title">Navigation</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Sources</a></li>
-                        <li><a href="#">Fact-Checks</a></li>
-                        <li><a href="#">Leaderboard</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="footer-title">Resources</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">How it Works</a></li>
-                        <li><a href="#">API Documentation</a></li>
-                        <li><a href="#">Browser Extension</a></li>
-                        <li><a href="#">Partners</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="footer-title">Contact</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">Report an Issue</a></li>
-                        <li><a href="#">Suggest a Feature</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                    </ul>
-                </div>
+      <div class="container">
+        <div class="footer-content">
+          <div>
+            <div class="footer-logo">
+              <i class="fas fa-shield-alt"></i> Factrix
             </div>
-            <div class="copyright">
-                &copy; 2025 Factrix. All rights reserved.
-            </div>
+            <p class="footer-desc">
+              Combating misinformation through AI technology and community
+              engagement.
+            </p>
+          </div>
+          <div>
+            <h3 class="footer-title">Navigation</h3>
+            <ul class="footer-links">
+              <li><a href="#">Home</a></li>
+              <li><a href="#">About</a></li>
+              <li><a href="#">Sources</a></li>
+              <li><a href="#">Fact-Checks</a></li>
+              <li><a href="#">Leaderboard</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="footer-title">Resources</h3>
+            <ul class="footer-links">
+              <li><a href="#">How it Works</a></li>
+              <li><a href="#">API Documentation</a></li>
+              <li><a href="#">Browser Extension</a></li>
+              <li><a href="#">Partners</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="footer-title">Contact</h3>
+            <ul class="footer-links">
+              <li><a href="#">Contact Us</a></li>
+              <li><a href="#">Report an Issue</a></li>
+              <li><a href="#">Suggest a Feature</a></li>
+              <li><a href="#">Privacy Policy</a></li>
+            </ul>
+          </div>
         </div>
+        <div class="copyright">&copy; 2025 Factrix. All rights reserved.</div>
+      </div>
     </footer>
 
     <script>
-        // Toggle mobile menu
-        document.querySelector('.mobile-menu').addEventListener('click', function() {
-            const nav = document.querySelector('nav');
-            nav.style.display = nav.style.display === 'block' ? 'none' : 'block';
+      // Theme toggle functionality
+      const themeToggle = document.getElementById("theme-toggle");
+      const icon = themeToggle.querySelector("i");
+
+      // Check for saved theme preference
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme) {
+        document.documentElement.setAttribute("data-theme", savedTheme);
+        icon.className = savedTheme === "dark" ? "fas fa-sun" : "fas fa-moon";
+      }
+
+      themeToggle.addEventListener("click", () => {
+        const currentTheme =
+          document.documentElement.getAttribute("data-theme");
+        const newTheme = currentTheme === "dark" ? "light" : "dark";
+
+        document.documentElement.setAttribute("data-theme", newTheme);
+        icon.className = newTheme === "dark" ? "fas fa-sun" : "fas fa-moon";
+        localStorage.setItem("theme", newTheme);
+      });
+
+      // Toggle mobile menu
+      document
+        .querySelector(".mobile-menu")
+        .addEventListener("click", function () {
+          const nav = document.querySelector("nav");
+          nav.style.display = nav.style.display === "block" ? "none" : "block";
         });
 
-        // Toggle results section
-        document.getElementById('check-btn').addEventListener('click', function() {
-            const results = document.getElementById('results');
-            results.classList.add('active');
-            
-            // Simulate API call and result processing
-            const meter = document.querySelector('.meter-fill');
-            
-            // Randomize the credibility score for demo purposes
-            const score = Math.random();
-            meter.style.width = `${score * 100}%`;
-            
-            if (score < 0.3) {
-                meter.style.background = 'var(--secondary)';
-            } else if (score < 0.7) {
-                meter.style.background = 'linear-gradient(to right, #FF9800, #FFC107)';
-            } else {
-                meter.style.background = '#4CAF50';
-            }
+      // Toggle results section
+      document
+        .getElementById("check-btn")
+        .addEventListener("click", function () {
+          const results = document.getElementById("results");
+          results.classList.add("active");
+
+          // Simulate API call and result processing
+          const meter = document.querySelector(".meter-fill");
+
+          // Randomize the credibility score for demo purposes
+          const score = Math.random();
+          meter.style.width = `${score * 100}%`;
+
+          if (score < 0.3) {
+            meter.style.background = "var(--secondary)";
+          } else if (score < 0.7) {
+            meter.style.background =
+              "linear-gradient(to right, #FF9800, #FFC107)";
+          } else {
+            meter.style.background = "#4CAF50";
+          }
         });
     </script>
-</body>
+  </body>
 </html>
