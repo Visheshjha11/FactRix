@@ -22,6 +22,12 @@
         --background: #fafafa;
         --card-bg: #ffffff;
         --border: #e0e0e0;
+        --success: #4caf50;
+        --success-light: #c8e6c9;
+        --success-dark: #388e3c;
+        --error: #f44336;
+        --error-light: #ffcdd2;
+        --error-dark: #d32f2f;
       }
 
       [data-theme="dark"] {
@@ -37,6 +43,12 @@
         --background: #121212;
         --card-bg: #1e1e1e;
         --border: #333333;
+        --success: #66bb6a;
+        --success-light: #1b5e20;
+        --success-dark: #a5d6a7;
+        --error: #ef5350;
+        --error-light: #b71c1c;
+        --error-dark: #ffcdd2;
       }
 
       * {
@@ -139,49 +151,107 @@
 
       .verification-card {
         background-color: var(--card-bg);
-        border-radius: 12px;
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        border-radius: 16px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
         padding: 32px;
-        max-width: 800px;
+        max-width: 720px;
         margin: -40px auto 60px;
         position: relative;
+        width: 90%;
+      }
+
+      .greeting-message {
+        font-size: clamp(1.8rem, 4vw, 2.2rem);
+        margin-bottom: clamp(20px, 4vw, 28px);
+        font-weight: 700;
+        text-align: center;
+        background: linear-gradient(45deg, var(--primary), var(--accent));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        animation: gradientFlow 8s ease infinite;
+      }
+
+      @keyframes gradientFlow {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
       }
 
       .verification-input {
         display: flex;
         flex-direction: column;
-        gap: 16px;
+        gap: 20px;
+      }
+
+      .input-container {
+        position: relative;
+        width: 100%;
       }
 
       .input-field {
         width: 100%;
-        padding: 16px;
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        font-size: 1rem;
-        transition: border-color 0.3s;
+        padding: clamp(16px, 3vw, 20px);
+        border: 2px solid var(--border);
+        border-radius: 12px;
+        font-size: clamp(0.9rem, 2vw, 1rem);
+        transition: all 0.3s ease;
         resize: none;
-        min-height: 120px;
+        min-height: clamp(100px, 15vw, 140px);
+        background-color: var(--card-bg);
+        color: var(--text-primary);
+      }
+
+      [data-theme="dark"] .input-field {
+        color: #ffffff;
+        background-color: var(--card-bg);
+      }
+
+      [data-theme="dark"] .input-field::placeholder {
+        color: rgba(255, 255, 255, 0.6);
       }
 
       .input-field:focus {
         outline: none;
         border-color: var(--primary);
-        box-shadow: 0 0 0 2px var(--primary-light);
+        box-shadow: 0 0 0 4px var(--primary-light);
+      }
+
+      .action-buttons {
+        display: flex;
+        gap: clamp(12px, 2vw, 16px);
+        justify-content: flex-end;
+        margin-top: clamp(16px, 3vw, 20px);
+        flex-wrap: wrap;
       }
 
       .btn {
-        display: inline-block;
-        padding: 12px 24px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: clamp(12px, 2vw, 14px) clamp(20px, 3vw, 28px);
         background-color: var(--primary);
         color: white;
         border: none;
-        border-radius: 6px;
+        border-radius: 12px;
         font-weight: 600;
+        font-size: clamp(0.9rem, 2vw, 1rem);
         cursor: pointer;
-        transition: background-color 0.3s, transform 0.2s;
+        transition: all 0.3s ease;
         text-align: center;
         text-decoration: none;
+        white-space: nowrap;
+      }
+
+      .btn i {
+        font-size: 1.1rem;
       }
 
       .btn:hover {
@@ -196,7 +266,7 @@
       .btn-secondary {
         background-color: transparent;
         color: var(--primary);
-        border: 1px solid var(--primary);
+        border: 2px solid var(--primary);
       }
 
       .btn-secondary:hover {
@@ -204,11 +274,46 @@
         color: var(--primary-dark);
       }
 
-      .action-buttons {
-        display: flex;
-        gap: 12px;
-        justify-content: center;
-        margin-top: 24px;
+      .file-upload {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: clamp(12px, 2vw, 14px) clamp(20px, 3vw, 28px);
+        background-color: transparent;
+        color: var(--text-primary);
+        border: 2px dashed var(--border);
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: clamp(0.9rem, 2vw, 1rem);
+        white-space: nowrap;
+      }
+
+      .file-upload:hover {
+        border-color: var(--primary);
+        background-color: var(--primary-light);
+      }
+
+      .file-upload input[type="file"] {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        cursor: pointer;
+      }
+
+      .file-name {
+        margin-top: 8px;
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        display: none;
+      }
+
+      .file-name.show {
+        display: block;
       }
 
       .results {
@@ -320,7 +425,7 @@
       .feedback-section {
         display: flex;
         justify-content: center;
-        gap: 12px;
+        gap: 16px;
         margin-top: 24px;
       }
 
@@ -328,16 +433,37 @@
         display: flex;
         align-items: center;
         gap: 8px;
-        padding: 8px 16px;
+        padding: 12px 24px;
         border-radius: 20px;
-        border: 1px solid var(--border);
+        border: 2px solid transparent;
         background-color: var(--card-bg);
         cursor: pointer;
-        transition: background-color 0.3s;
+        transition: all 0.3s ease;
+        font-weight: 500;
       }
 
-      .feedback-btn:hover {
-        background-color: var(--primary-light);
+      .feedback-btn.helpful {
+        color: var(--success);
+        border-color: var(--success);
+      }
+
+      .feedback-btn.helpful:hover {
+        background-color: var(--success-light);
+        color: var(--success-dark);
+      }
+
+      .feedback-btn.not-helpful {
+        color: var(--error);
+        border-color: var(--error);
+      }
+
+      .feedback-btn.not-helpful:hover {
+        background-color: var(--error-light);
+        color: var(--error-dark);
+      }
+
+      .feedback-btn i {
+        font-size: 1.1rem;
       }
 
       .recent-checks {
@@ -517,7 +643,13 @@
         }
 
         .action-buttons {
-          flex-direction: column;
+          justify-content: center;
+        }
+
+        .btn,
+        .file-upload {
+          width: 100%;
+          justify-content: center;
         }
 
         .hero {
@@ -526,7 +658,29 @@
 
         .verification-card {
           padding: 24px;
-          margin-top: -30px;
+          margin: -30px auto 40px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .verification-card {
+          padding: 20px;
+          margin: -20px auto 30px;
+          width: 95%;
+        }
+
+        .greeting-message {
+          font-size: 1.8rem;
+          margin-bottom: 20px;
+        }
+
+        .input-field {
+          min-height: 100px;
+          padding: 16px;
+        }
+
+        .action-buttons {
+          gap: 12px;
         }
       }
     </style>
@@ -574,14 +728,25 @@
 
     <main class="container">
       <div class="verification-card">
+        <h1 class="greeting-message" id="greeting">Good Morning!</h1>
         <div class="verification-input">
-          <textarea
-            class="input-field"
-            placeholder="Paste News Link or Content here..."
-          ></textarea>
+          <div class="input-container">
+            <textarea
+              class="input-field"
+              placeholder="Not sure if it's true? Let me verify it for you. 🔍"
+            ></textarea>
+          </div>
           <div class="action-buttons">
-            <button class="btn" id="check-btn">Check Credibility</button>
-            <button class="btn btn-secondary">Upload Article</button>
+            <label class="file-upload">
+              <i class="fas fa-plus"></i>
+              <span>Attach File</span>
+              <input type="file" accept=".txt,.pdf,.doc,.docx" id="fileInput" />
+            </label>
+            <div class="file-name" id="fileName"></div>
+            <button class="btn" id="check-btn">
+              <span>Check Credibility</span>
+              <i class="fas fa-arrow-right"></i>
+            </button>
           </div>
         </div>
 
@@ -608,11 +773,11 @@
           </div>
 
           <div class="feedback-section">
-            <button class="feedback-btn">
+            <button class="feedback-btn helpful">
               <i class="fas fa-thumbs-up"></i>
               <span>Helpful</span>
             </button>
-            <button class="feedback-btn">
+            <button class="feedback-btn not-helpful">
               <i class="fas fa-thumbs-down"></i>
               <span>Not Helpful</span>
             </button>
@@ -809,6 +974,92 @@
             meter.style.background = "#4CAF50";
           }
         });
+
+      // Add greeting message based on time of day
+      function updateGreeting() {
+        const hour = new Date().getHours();
+        const greeting = document.getElementById("greeting");
+
+        if (hour < 12) {
+          greeting.textContent = "Good Morning!";
+        } else if (hour < 18) {
+          greeting.textContent = "Good Afternoon!";
+        } else {
+          greeting.textContent = "Good Evening!";
+        }
+      }
+
+      // Update greeting on page load
+      updateGreeting();
+
+      // Add file upload handling
+      const fileInput = document.getElementById("fileInput");
+      const fileName = document.getElementById("fileName");
+      const textArea = document.querySelector(".input-field");
+
+      fileInput.addEventListener("change", function (e) {
+        const file = e.target.files[0];
+        if (file) {
+          // Display file name
+          fileName.textContent = `Selected file: ${file.name}`;
+          fileName.classList.add("show");
+
+          // Read file content if it's a text file
+          if (file.type === "text/plain") {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+              textArea.value = e.target.result;
+            };
+            reader.readAsText(file);
+          } else {
+            // For non-text files, just show the file name
+            textArea.value = `File selected: ${file.name}\n\nPlease paste your content here or select a text file.`;
+          }
+        } else {
+          fileName.classList.remove("show");
+        }
+      });
+
+      // Allow drag and drop
+      const dropZone = document.querySelector(".verification-card");
+
+      ["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
+        dropZone.addEventListener(eventName, preventDefaults, false);
+      });
+
+      function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+
+      ["dragenter", "dragover"].forEach((eventName) => {
+        dropZone.addEventListener(eventName, highlight, false);
+      });
+
+      ["dragleave", "drop"].forEach((eventName) => {
+        dropZone.addEventListener(eventName, unhighlight, false);
+      });
+
+      function highlight(e) {
+        dropZone.classList.add("highlight");
+      }
+
+      function unhighlight(e) {
+        dropZone.classList.remove("highlight");
+      }
+
+      dropZone.addEventListener("drop", handleDrop, false);
+
+      function handleDrop(e) {
+        const dt = e.dataTransfer;
+        const file = dt.files[0];
+
+        if (file) {
+          fileInput.files = dt.files;
+          const event = new Event("change");
+          fileInput.dispatchEvent(event);
+        }
+      }
     </script>
   </body>
 </html>
