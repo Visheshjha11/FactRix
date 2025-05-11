@@ -388,11 +388,16 @@
       .section-title::after {
         content: "";
         display: block;
-        width: 60px;
+        width: 0;
         height: 4px;
         background-color: var(--primary);
         margin: 16px auto 0;
         border-radius: 2px;
+        transition: width 0.3s ease;
+      }
+
+      .section-title:hover::after {
+        width: 60px;
       }
 
       .features {
