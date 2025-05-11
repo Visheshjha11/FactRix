@@ -39,6 +39,40 @@
         --border: #333333;
       }
 
+      /* Starry background styles */
+      .stars {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: -1;
+        display: none;
+      }
+
+      [data-theme="dark"] .stars {
+        display: block;
+      }
+
+      .star {
+        position: absolute;
+        background-color: #fff;
+        border-radius: 50%;
+        animation: twinkle var(--duration) infinite;
+        opacity: 0;
+      }
+
+      @keyframes twinkle {
+        0%,
+        100% {
+          opacity: 0;
+        }
+        50% {
+          opacity: var(--opacity);
+        }
+      }
+
       * {
         margin: 0;
         padding: 0;
@@ -336,6 +370,7 @@
     </style>
   </head>
   <body>
+    <div class="stars" id="stars"></div>
     <header>
       <div class="container">
         <div class="header-content">
@@ -520,6 +555,40 @@
     </footer>
 
     <script>
+      // Create stars
+      function createStars() {
+        const starsContainer = document.getElementById("stars");
+        const starCount = 200; // Number of stars
+
+        for (let i = 0; i < starCount; i++) {
+          const star = document.createElement("div");
+          star.className = "star";
+
+          // Random position
+          star.style.left = `${Math.random() * 100}%`;
+          star.style.top = `${Math.random() * 100}%`;
+
+          // Random size between 1px and 3px
+          const size = Math.random() * 2 + 1;
+          star.style.width = `${size}px`;
+          star.style.height = `${size}px`;
+
+          // Random animation duration between 2s and 5s
+          star.style.setProperty("--duration", `${Math.random() * 3 + 2}s`);
+
+          // Random opacity between 0.3 and 1
+          star.style.setProperty("--opacity", Math.random() * 0.7 + 0.3);
+
+          // Random delay
+          star.style.animationDelay = `${Math.random() * 5}s`;
+
+          starsContainer.appendChild(star);
+        }
+      }
+
+      // Call createStars when the page loads
+      createStars();
+
       // Theme toggle functionality
       const themeToggle = document.getElementById("theme-toggle");
       const icon = themeToggle.querySelector("i");
