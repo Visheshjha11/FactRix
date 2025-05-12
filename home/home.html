@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FactRix - Your AI Shield Against Fake News</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="home.css" />
+  </head>
+  <body>
+    <div class="stars" id="stars"></div>
+    <header>
+      <div class="container">
+        <div class="header-content">
+          <a href="#" class="logo">
+            <i class="fas fa-shield-alt"></i>
+            <span>FactRix</span>
+          </a>
+          <nav>
+            <ul>
+              <li><a href="home.html">Home</a></li>
+              <li><a href="#">Sources</a></li>
+              <li><a href="#">Fact-Checks</a></li>
+              <li><a href="#">Leaderboard</a></li>
+              <li><a href="about.html">About</a></li>
+            </ul>
+          </nav>
+          <button
+            class="theme-toggle"
+            id="theme-toggle"
+            aria-label="Toggle dark mode"
+          >
+            <i class="fas fa-moon"></i>
+          </button>
+          <button class="mobile-menu">
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="container">
+        <h1>Your AI Shield Against Fake News</h1>
+        <p>
+          FactRix helps you verify the credibility of news and information using
+          advanced AI technology and community-powered fact-checking.
+        </p>
+      </div>
+    </section>
+
+    <main class="container">
+      <div class="verification-card">
+        <h1 class="greeting-message" id="greeting">Good Morning!</h1>
+        <div class="verification-input">
+          <div class="input-container">
+            <textarea
+              class="input-field"
+              placeholder="Not sure if it's true? Let me verify it for you. 🔍"
+            ></textarea>
+          </div>
+          <div class="action-buttons">
+            <label class="file-upload">
+              <i class="fas fa-plus"></i>
+              <span>Attach File</span>
+              <input type="file" accept=".txt,.pdf,.doc,.docx" id="fileInput" />
+            </label>
+            <div class="file-name" id="fileName"></div>
+            <button class="btn" id="check-btn">
+              <span>Check Credibility</span>
+              <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="results" id="results">
+          <h3>Credibility Assessment</h3>
+          <div class="result-meter">
+            <div class="meter">
+              <div class="meter-fill"></div>
+            </div>
+          </div>
+          <div class="meter-labels">
+            <span>Fake</span>
+            <span>Questionable</span>
+            <span>True</span>
+          </div>
+
+          <div class="result-details">
+            <h3>Why we think this might be misleading:</h3>
+            <p>
+              Our AI analysis detected several patterns common in misleading
+              news articles, including emotional language, lack of attribution
+              to primary sources, and inconsistencies with verified facts.
+            </p>
+          </div>
+
+          <div class="feedback-section">
+            <button class="feedback-btn helpful">
+              <i class="fas fa-thumbs-up"></i>
+              <span>Helpful</span>
+            </button>
+            <button class="feedback-btn not-helpful">
+              <i class="fas fa-thumbs-down"></i>
+              <span>Not Helpful</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="section-title">How FactRix Works</h2>
+      <div class="features">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-robot"></i>
+          </div>
+          <h3>AI-Powered Analysis</h3>
+          <p>
+            Our sophisticated algorithms scan for misleading claims and detect
+            potential bias in reporting.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <h3>Community Contributions</h3>
+          <p>
+            Join our collective effort to reduce misinformation by submitting
+            and reviewing fact-checks.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-bolt"></i>
+          </div>
+          <h3>Real-Time Verification</h3>
+          <p>
+            Get instant feedback on content credibility while browsing online
+            articles.
+          </p>
+        </div>
+      </div>
+
+      <section class="recent-checks">
+        <h2 class="section-title">Recent Fact Checks</h2>
+        <div class="check-list">
+          <div class="check-card">
+            <div class="check-header">
+              <h3 class="check-title">Study Claims Climate Change is a Hoax</h3>
+              <div class="check-source">
+                <i class="fas fa-link"></i>
+                <span>climatetruth.net</span>
+              </div>
+            </div>
+            <div class="check-content">
+              <span class="check-rating rating-fake">Fake</span>
+              <p class="check-snippet">
+                The article misrepresents scientific consensus and cites
+                non-peer-reviewed studies. Multiple sources confirm that climate
+                change is well-documented by global scientific institutions.
+              </p>
+            </div>
+          </div>
+          <div class="check-card">
+            <div class="check-header">
+              <h3 class="check-title">New COVID Variant Causes Panic</h3>
+              <div class="check-source">
+                <i class="fas fa-link"></i>
+                <span>healthnewsdaily.com</span>
+              </div>
+            </div>
+            <div class="check-content">
+              <span class="check-rating rating-questionable">Questionable</span>
+              <p class="check-snippet">
+                While a new variant has been identified, the article exaggerates
+                its impact and uses sensationalist language. Official health
+                organizations report the variant is being monitored but does not
+                currently warrant alarm.
+              </p>
+            </div>
+          </div>
+          <div class="check-card">
+            <div class="check-header">
+              <h3 class="check-title">Economic Growth Reaches 5-Year High</h3>
+              <div class="check-source">
+                <i class="fas fa-link"></i>
+                <span>reuters.com</span>
+              </div>
+            </div>
+            <div class="check-content">
+              <span class="check-rating rating-true">True</span>
+              <p class="check-snippet">
+                This article accurately reports official economic data released
+                by the Federal Reserve. Multiple financial sources confirm the
+                reported growth figures.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div>
+            <div class="footer-logo">
+              <i class="fas fa-shield-alt"></i> FactRix
+            </div>
+            <p class="footer-desc">
+              Combating misinformation through AI technology and community
+              engagement.
+            </p>
+          </div>
+          <div>
+            <h3 class="footer-title">Navigation</h3>
+            <ul class="footer-links">
+              <li><a href="home.html">Home</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="#">Sources</a></li>
+              <li><a href="#">Fact-Checks</a></li>
+              <li><a href="#">Leaderboard</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="footer-title">Resources</h3>
+            <ul class="footer-links">
+              <li><a href="#">How it Works</a></li>
+              <li><a href="#">API Documentation</a></li>
+              <li><a href="#">Browser Extension</a></li>
+              <li><a href="#">Partners</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="footer-title">Contact</h3>
+            <ul class="footer-links">
+              <li><a href="#">Contact Us</a></li>
+              <li><a href="#">Report an Issue</a></li>
+              <li><a href="#">Suggest a Feature</a></li>
+              <li><a href="#">Privacy Policy</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="copyright">&copy; 2025 FactRix. All rights reserved.</div>
+      </div>
+    </footer>
+    <script src="home.js"></script>
+  </body>
+</html>
