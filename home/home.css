@@ -1176,3 +1176,42 @@ footer {
     transform: translateX(100%);
   }
 }
+
+.report-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background-color: #8b0000;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 16px;
+  width: 100%;
+  justify-content: center;
+}
+
+.report-button:hover {
+  background-color: #a52a2a;
+  transform: translateY(-2px);
+}
+
+.report-button:active {
+  transform: translateY(0);
+}
+
+.report-button i {
+  font-size: 1.1rem;
+}
+
+[data-theme="dark"] .report-button {
+  background-color: #8b0000;
+  color: white;
+}
+
+[data-theme="dark"] .report-button:hover {
+  background-color: #a52a2a;
+}
