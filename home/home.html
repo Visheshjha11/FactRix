@@ -60,7 +60,17 @@
             <textarea
               class="input-field"
               placeholder="Not sure if it's true? Let me verify it for you. 🔍"
+              maxlength="1000"
             ></textarea>
+            <div class="char-counter">0/1000 characters</div>
+          </div>
+          <div class="example-queries">
+            <div class="example-query">Is climate change real?</div>
+            <div class="example-query">COVID-19 vaccine safety</div>
+            <div class="example-query">Latest election results</div>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-bar-fill"></div>
           </div>
           <div class="action-buttons">
             <label class="file-upload">
@@ -78,7 +88,10 @@
 
         <div class="results" id="results">
           <h3>Credibility Assessment</h3>
-          <div class="result-meter">
+          <div
+            class="result-meter"
+            title="Hover over the meter to see detailed explanation"
+          >
             <div class="meter">
               <div class="meter-fill"></div>
             </div>
@@ -108,6 +121,9 @@
               <span>Not Helpful</span>
             </button>
           </div>
+          <button class="report-button" id="reportButton">
+            <i class="fas fa-flag"></i> Report Fake News
+          </button>
         </div>
       </div>
 
@@ -204,13 +220,82 @@
       </section>
     </main>
 
+    <div class="stats">
+      <div class="stat-item">
+        <div class="stat-number">99%</div>
+        <div class="stat-label">Accuracy Rate</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">1M+</div>
+        <div class="stat-label">Fact Checks</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">50K+</div>
+        <div class="stat-label">Active Users</div>
+      </div>
+    </div>
+
+    <div class="newsletter-form">
+      <div class="newsletter-content">
+        <div class="newsletter-icon">
+          <i class="fas fa-envelope-open-text"></i>
+        </div>
+        <div class="newsletter-text">
+          <h3>Stay Updated</h3>
+          <p>
+            Subscribe to our newsletter for the latest fact-checking news,
+            updates, and insights. Join our community of truth-seekers!
+          </p>
+        </div>
+      </div>
+      <form id="newsletterForm" class="newsletter-input-group">
+        <div class="input-wrapper">
+          <i class="fas fa-envelope"></i>
+          <input
+            type="email"
+            placeholder="Enter your email address"
+            required
+            aria-label="Email address"
+          />
+        </div>
+        <button type="submit" class="subscribe-btn">
+          <span>Subscribe</span>
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </form>
+      <div class="newsletter-benefits">
+        <div class="benefit-item">
+          <i class="fas fa-check-circle"></i>
+          <span>Weekly fact-checking reports</span>
+        </div>
+        <div class="benefit-item">
+          <i class="fas fa-check-circle"></i>
+          <span>Latest misinformation alerts</span>
+        </div>
+        <div class="benefit-item">
+          <i class="fas fa-check-circle"></i>
+          <span>Exclusive community insights</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="cookie-banner" id="cookieBanner">
+      <p>
+        We use cookies to improve your experience. By continuing to use this
+        site, you agree to our use of cookies.
+      </p>
+      <button onclick="acceptCookies()">Accept</button>
+    </div>
+
+    <div class="back-to-top" id="backToTop">
+      <i class="fas fa-arrow-up"></i>
+    </div>
+
     <footer>
       <div class="container">
         <div class="footer-content">
           <div>
-            <div class="footer-logo">
-              <i class="fas fa-x"></i> FactRix
-            </div>
+            <div class="footer-logo"><i class="fas fa-x"></i> FactRix</div>
             <p class="footer-desc">
               Combating misinformation through AI technology and community
               engagement.
