@@ -36,10 +36,10 @@ createStars();
 const themeToggle = document.getElementById("theme-toggle");
 const icon = themeToggle.querySelector("i");
 
-// Set dark theme as default if no theme is saved
-const savedTheme = localStorage.getItem("theme") || "dark";
-document.documentElement.setAttribute("data-theme", savedTheme);
-icon.className = savedTheme === "dark" ? "fas fa-sun" : "fas fa-moon";
+// Always set dark theme as default for home page
+document.documentElement.setAttribute("data-theme", "dark");
+localStorage.setItem("theme", "dark");
+icon.className = "fas fa-sun";
 
 themeToggle.addEventListener("click", () => {
   const currentTheme = document.documentElement.getAttribute("data-theme");

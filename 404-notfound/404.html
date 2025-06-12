@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>404 - Factrix</title>
+    <meta name="author" content="pkfrom" />
+    <meta name="keywords" content="404 page, css3, template, html5 template" />
+    <meta name="description" content="404 - Page Not Found" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1"
+    />
+    <!-- Libs CSS -->
+    <link
+      type="text/css"
+      media="all"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      type="text/css"
+      media="all"
+      href="//pkfrom.github.io/404/assets/css/404.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #2196f3;
+        --primary-light: #bbdefb;
+        --primary-dark: #1976d2;
+        --secondary: #f44336;
+        --secondary-light: #ffcdd2;
+        --accent: #9c27b0;
+        --accent-light: #e1bee7;
+        --text-primary: #212121;
+        --text-secondary: #757575;
+        --background: #fafafa;
+        --card-bg: #ffffff;
+        --border: #e0e0e0;
+      }
+
+      [data-theme="dark"] {
+        --primary: #64b5f6;
+        --primary-light: #1976d2;
+        --primary-dark: #bbdefb;
+        --secondary: #ef5350;
+        --secondary-light: #b71c1c;
+        --accent: #ba68c8;
+        --accent-light: #7b1fa2;
+        --text-primary: #ffffff;
+        --text-secondary: #b0b0b0;
+        --background: #121212;
+        --card-bg: #1e1e1e;
+        --border: #333333;
+      }
+
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: var(--background);
+        color: var(--text-primary);
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+      #wrapper {
+        width: 100%;
+        max-width: 1000px;
+        margin: 0 auto;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+      }
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        padding: 20px;
+      }
+      .info {
+        text-align: center;
+        padding: 10px;
+      }
+      .info img {
+        max-width: 80%;
+        height: auto;
+        margin-bottom: 15px;
+      }
+      .info p {
+        margin: 15px 0;
+        font-size: 16px;
+        line-height: 1.4;
+        color: var(--text-secondary);
+      }
+      .btn {
+        margin: 8px;
+        padding: 10px 25px;
+        font-size: 14px;
+        background-color: var(--primary);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+      .btn:hover {
+        background-color: var(--primary-dark);
+        transform: translateY(-2px);
+      }
+      .switcher {
+        position: fixed;
+        top: 15px;
+        right: 15px;
+        transform: scale(0.7);
+        transform-origin: top right;
+      }
+      .switcher .text {
+        font-size: 12px;
+        color: var(--text-secondary);
+      }
+      .sw_btn {
+        width: 40px;
+        height: 40px;
+        background-color: var(--card-bg);
+        border: 2px solid var(--border);
+        border-radius: 50%;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      .sw_btn:hover {
+        border-color: var(--primary);
+      }
+      @media (max-width: 768px) {
+        .info img {
+          max-width: 90%;
+        }
+        .info p {
+          font-size: 14px;
+        }
+        .btn {
+          padding: 8px 20px;
+          font-size: 13px;
+        }
+      }
+    </style>
+    <!-- Favicons -->
+    <link
+      rel="apple-touch-icon"
+      sizes="144x144"
+      href="//pkfrom.github.io/404/assets/img/favicons/favicon144x144.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="114x114"
+      href="//pkfrom.github.io/404/assets/img/favicons/favicon114x114.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="72x72"
+      href="//pkfrom.github.io/404/assets/img/favicons/favicon72x72.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      href="//pkfrom.github.io/404/assets/img/favicons/favicon57x57.png"
+    />
+    <link
+      rel="shortcut icon"
+      href="//pkfrom.github.io/404/assets/img/favicons/favicon.png"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900"
+      rel="stylesheet"
+      type="text/css"
+    />
+  </head>
+  <body>
+    <!-- Load page -->
+    <div class="animationload">
+      <div class="loader"></div>
+    </div>
+    <!-- End load page -->
+
+    <!-- Content Wrapper -->
+    <div id="wrapper">
+      <div class="container">
+        <!-- Switcher -->
+        <div class="switcher">
+          <input id="sw" type="checkbox" class="switcher-value" />
+          <label for="sw" class="sw_btn"></label>
+          <div class="bg"></div>
+          <div class="text">
+            Turn <span class="text-l">off</span><span class="text-d">on</span
+            ><br />the light
+          </div>
+        </div>
+        <!-- End Switcher -->
+
+        <!-- Dark version -->
+        <div id="dark" class="row text-center">
+          <div class="info">
+            <img
+              src="//pkfrom.github.io/404/assets/img/404-dark.png"
+              alt="404 error"
+            />
+          </div>
+        </div>
+        <!-- End Dark version -->
+
+        <!-- Light version -->
+        <div id="light" class="row text-center">
+          <div class="info">
+            <img
+              src="//pkfrom.github.io/404/assets/img/404-light.gif"
+              alt="404 error"
+            />
+            <p>
+              The page you are looking for was moved, removed,<br />
+              renamed or might never existed.
+            </p>
+            <div class="button-group">
+              <a href="../home/home.html" class="btn">Go Home</a>
+            </div>
+          </div>
+        </div>
+        <!-- End Light version -->
+      </div>
+      <!-- end container -->
+    </div>
+    <!-- end Content Wrapper -->
+
+    <!-- Scripts -->
+    <script
+      src="https://code.jquery.com/jquery-2.2.0.min.js"
+      type="text/javascript"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+      type="text/javascript"
+    ></script>
+    <script
+      src="//pkfrom.github.io/404/assets/js/modernizr.custom.js"
+      type="text/javascript"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.6.0/jquery.nicescroll.min.js"
+      type="text/javascript"
+    ></script>
+    <script
+      src="//pkfrom.github.io/404/assets/js/404.min.js"
+      type="text/javascript"
+    ></script>
+    <script>
+      // Theme toggle functionality
+      const themeToggle = document.getElementById("sw");
+
+      // Set dark theme as default if no theme is saved
+      const savedTheme = localStorage.getItem("theme") || "dark";
+      document.documentElement.setAttribute("data-theme", savedTheme);
+      themeToggle.checked = savedTheme === "dark";
+
+      themeToggle.addEventListener("change", function () {
+        const theme = this.checked ? "dark" : "light";
+        document.documentElement.setAttribute("data-theme", theme);
+        localStorage.setItem("theme", theme);
+      });
+    </script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </body>
+</html>
